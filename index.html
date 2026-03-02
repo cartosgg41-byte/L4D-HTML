@@ -3,28 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>L4D-HTML Game</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <title>Zombie Game</title>
     <style>
         body { margin: 0; }
         canvas { display: block; }
+        #hud { position: absolute; top: 10px; left: 10px; color: white; font-size: 20px; }
     </style>
 </head>
 <body>
+    <div id="hud">Score: 0</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        // Basic Three.js Scene Setup
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
+        let scene, camera, renderer;
+        let zombies = [];
+        let score = 0;
 
-        // Animation Loop
+        function init() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            // Add lighting
+            const light = new THREE.DirectionalLight(0xffffff, 1);
+            light.position.set(0, 1, 0);
+            scene.add(light);
+
+            spawnZombie();
+            camera.position.z = 5;
+            animate();
+        }
+
+        function spawnZombie() {
+            const geometry = new THREE.BoxGeometry(1, 1, 1);
+            const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+            const zombie = new THREE.Mesh(geometry, material);
+            zombie.position.x = Math.random() * 10 - 5;
+            zombie.position.z = Math.random() * 10 - 5;
+            scene.add(zombie);
+            zombies.push(zombie);
+        }
+
         function animate() {
             requestAnimationFrame(animate);
+            zombies.forEach(zombie => {
+                zombie.position.z += 0.01;
+            });
             renderer.render(scene, camera);
         }
-        animate();
+
+        window.addEventListener('click', (event) => {
+            score += 1;
+            document.getElementById('hud').innerText = `Score: ${score}`;
+            spawnZombie();
+        });
+
+        init();
     </script>
 </body>
 </html>
