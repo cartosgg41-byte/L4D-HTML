@@ -3,39 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Left 4 Dead 2 Style Game</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="game.js" defer></script>
+    <title>L4D-HTML Game</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
 </head>
 <body>
-    <div id="HUD">
-        <div id="health-bar">Health: 100</div>
-        <div id="ammo-count">Ammo: 50</div>
-        <div id="score">Score: 0</div>
-    </div>
-    <canvas id="gameCanvas"></canvas>
     <script>
-        // Initialize 3D game environment
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        // Basic Three.js Scene Setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
 
-        // Load 3D models, animations, sounds, and textures here
-        // Placeholder code for loading assets
-        const assets = [];
-
-        function loadAssets() {
-            // Logic to load 3D models and textures
+        // Animation Loop
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
         }
-
-        function gameLoop() {
-            // Main game loop logic
-            requestAnimationFrame(gameLoop);
-        }
-
-        loadAssets();
-        gameLoop();
+        animate();
     </script>
 </body>
 </html>
