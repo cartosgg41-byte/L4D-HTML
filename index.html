@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Left 4 Dead 2 Style Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="game.js" defer></script>
+</head>
+<body>
+    <div id="HUD">
+        <div id="health-bar">Health: 100</div>
+        <div id="ammo-count">Ammo: 50</div>
+        <div id="score">Score: 0</div>
+    </div>
+    <canvas id="gameCanvas"></canvas>
+    <script>
+        // Initialize 3D game environment
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Load 3D models, animations, sounds, and textures here
+        // Placeholder code for loading assets
+        const assets = [];
+
+        function loadAssets() {
+            // Logic to load 3D models and textures
+        }
+
+        function gameLoop() {
+            // Main game loop logic
+            requestAnimationFrame(gameLoop);
+        }
+
+        loadAssets();
+        gameLoop();
+    </script>
+</body>
+</html>
